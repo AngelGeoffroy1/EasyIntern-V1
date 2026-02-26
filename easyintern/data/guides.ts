@@ -24,6 +24,9 @@ export const destinations: CountryDestination[] = [
   { country: 'Irlande', flag: '🇮🇪', description: 'Dublin, Cork, Galway...' },
   { country: 'Japon', flag: '🇯🇵', description: 'Tokyo, Osaka, Kyoto...' },
   { country: 'Portugal', flag: '🇵🇹', description: 'Lisbonne, Porto, Faro...' },
+  { country: 'Uruguay', flag: '🇺🇾', description: 'Montevideo, Punta del Este, Colonia...' },
+  { country: 'Finlande', flag: '🇫🇮', description: 'Helsinki, Tampere, Turku...' },
+  { country: 'Afrique du Sud', flag: '🇿🇦', description: 'Le Cap, Johannesburg, Durban...' },
 ];
 
 // === GUIDES PAR PAYS (contenu principal) ===
@@ -715,6 +718,204 @@ export const countryGuideCards: Record<string, GuideCard[]> = {
       ],
       resources: [
         { title: 'Pingo Doce', url: 'https://www.pingodoce.pt/', type: 'site' },
+      ],
+    },
+  ],
+
+  'Uruguay': [
+    {
+      id: 'uy-visa', themeId: 'visa-admin', title: 'Visa & démarches en Uruguay', icon: '📋',
+      description: 'L\'Uruguay est très ouvert aux étudiants étrangers, les formalités sont simples.',
+      tips: [
+        'Les citoyens français peuvent rester 90 jours sans visa (tourisme)',
+        'Pour un séjour long : demander la cédula provisoire à la Dirección Nacional de Migración',
+        'Inscription consulaire recommandée à l\'ambassade de France à Montevideo',
+        'L\'apostille de La Haye est souvent demandée pour les diplômes',
+      ],
+      resources: [
+        { title: 'Dirección Nacional de Migración', url: 'https://www.gub.uy/direccion-nacional-migracion/', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'uy-logement', themeId: 'logement', title: 'Se loger en Uruguay', icon: '🏠',
+      description: 'Marché locatif accessible, surtout à Montevideo.',
+      tips: [
+        'Infocasas et MercadoLibre immuebles : les sites de référence',
+        'Colocation à Montevideo : 300-600 USD/mois',
+        'Les quartiers Pocitos, Cordón et Parque Rodó sont prisés par les étudiants',
+        'Le dépôt de garantie est généralement d\'un mois de loyer',
+      ],
+      resources: [
+        { title: 'Infocasas', url: 'https://www.infocasas.com.uy/', type: 'site' },
+        { title: 'MercadoLibre Inmuebles', url: 'https://inmuebles.mercadolibre.com.uy/', type: 'site' },
+      ],
+    },
+    {
+      id: 'uy-banque', themeId: 'budget-banque', title: 'Banque & budget en Uruguay', icon: '💳',
+      description: 'Un pays dollarisé où le peso uruguayen coexiste avec le dollar.',
+      tips: [
+        'BROU (Banco República) : la banque publique, la plus courante',
+        'Prex et Midinero : cartes prépayées sans compte bancaire',
+        'Beaucoup de transactions se font en dollars US',
+        'Budget étudiant moyen : 800-1200 USD/mois à Montevideo',
+      ],
+      resources: [
+        { title: 'BROU', url: 'https://www.brou.com.uy/', type: 'site' },
+      ],
+    },
+    {
+      id: 'uy-vie', themeId: 'vie-quotidienne', title: 'Vie quotidienne en Uruguay', icon: '🍽️',
+      description: 'Un pays tranquille avec une culture du maté et de l\'asado.',
+      tips: [
+        'Le maté est partout : c\'est un rituel social incontournable',
+        'Asado le dimanche : tradition sacrée des Uruguayens',
+        'Tienda Inglesa, Devoto et Ta-Ta pour les courses',
+        'Le pays est très sûr comparé au reste de l\'Amérique latine',
+      ],
+      resources: [
+        { title: 'Guide Uruguay — France Diplomatie', url: 'https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/uruguay/', type: 'officiel' },
+      ],
+    },
+  ],
+
+  'Finlande': [
+    {
+      id: 'fi-visa', themeId: 'visa-admin', title: 'Permis de séjour & démarches', icon: '📋',
+      description: 'Les citoyens UE peuvent s\'installer librement, mais l\'enregistrement est recommandé.',
+      tips: [
+        'Citoyens UE : enregistrement auprès du DVV (Digital and Population Data Services Agency)',
+        'Le personal identity code (henkilötunnus) est indispensable pour tout',
+        'Non-UE : permis de séjour étudiant sur le Finnish Immigration Service (Migri)',
+        'Inscription à la Kela (sécurité sociale) possible après 2 ans de résidence',
+      ],
+      resources: [
+        { title: 'DVV — Enregistrement', url: 'https://dvv.fi/en/', type: 'officiel' },
+        { title: 'Migri — Permis de séjour', url: 'https://migri.fi/en/', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'fi-logement', themeId: 'logement', title: 'Se loger en Finlande', icon: '🏠',
+      description: 'Des résidences étudiantes abordables gérées par des fondations.',
+      tips: [
+        'HOAS (Helsinki), TYS (Turku), TOAS (Tampere) : résidences étudiantes subventionnées',
+        'Budget étudiant Helsinki : 400-700€/mois en résidence',
+        'Oikotie.fi et Vuokraovi.com pour les locations privées',
+        'Postulez aux résidences étudiantes dès l\'acceptation dans l\'université',
+      ],
+      resources: [
+        { title: 'HOAS', url: 'https://www.hoas.fi/en/', type: 'site' },
+        { title: 'Oikotie', url: 'https://www.oikotie.fi/', type: 'site' },
+      ],
+    },
+    {
+      id: 'fi-banque', themeId: 'budget-banque', title: 'Banque & budget en Finlande', icon: '💳',
+      description: 'Un pays très digitalisé où le cash est quasiment inexistant.',
+      tips: [
+        'Nordea et OP sont les banques principales pour les étudiants',
+        'Le personal identity code est obligatoire pour ouvrir un compte',
+        'MobilePay est très utilisé pour les paiements entre particuliers',
+        'Budget étudiant moyen : 800-1200€/mois (Helsinki plus cher)',
+      ],
+      resources: [
+        { title: 'Nordea', url: 'https://www.nordea.fi/', type: 'site' },
+      ],
+    },
+    {
+      id: 'fi-vie', themeId: 'vie-quotidienne', title: 'Vie quotidienne en Finlande', icon: '🍽️',
+      description: 'Le pays du sauna, de la nature et des repas étudiants subventionnés.',
+      tips: [
+        'Les cantines étudiantes (Unicafe, Juvenes) : repas complet à 2.95€ !',
+        'Le sauna fait partie de la culture : votre résidence en aura sûrement un',
+        'S-Market et K-Market pour les courses, Lidl pour économiser',
+        'L\'hiver est long et sombre : investissez dans de la vitamine D et un bon manteau',
+      ],
+      resources: [
+        { title: 'Frank App — Carte étudiant', url: 'https://frank.fi/', type: 'app' },
+      ],
+    },
+    {
+      id: 'fi-transport', themeId: 'transport', title: 'Se déplacer en Finlande', icon: '🚇',
+      description: 'Transports efficaces et réduction étudiante significative.',
+      tips: [
+        'HSL (Helsinki) : pass étudiant avec réduction de ~50%',
+        'VR (trains nationaux) : réductions étudiantes sur tous les trajets',
+        'Le vélo est très courant même en hiver (pistes dégagées)',
+        'Onnibus pour les trajets longue distance pas chers',
+      ],
+      resources: [
+        { title: 'HSL — Helsinki', url: 'https://www.hsl.fi/en/', type: 'officiel' },
+        { title: 'VR — Trains', url: 'https://www.vr.fi/en/', type: 'officiel' },
+      ],
+    },
+  ],
+
+  'Afrique du Sud': [
+    {
+      id: 'za-visa', themeId: 'visa-admin', title: 'Visa d\'études pour l\'Afrique du Sud', icon: '🛂',
+      description: 'Un visa spécifique est obligatoire pour les études.',
+      tips: [
+        'Visa d\'études (Study Visa) demandé à l\'ambassade d\'Afrique du Sud à Paris',
+        'Documents : lettre d\'admission, preuve financière, certificat médical, casier judiciaire',
+        'Délai : 4-8 semaines, anticipez bien',
+        'Renouvellement possible sur place au Department of Home Affairs',
+      ],
+      resources: [
+        { title: 'VFS Global — Afrique du Sud', url: 'https://www.vfsglobal.com/southafrica/france/', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'za-logement', themeId: 'logement', title: 'Se loger en Afrique du Sud', icon: '🏠',
+      description: 'Un marché abordable mais il faut bien choisir son quartier.',
+      tips: [
+        'Property24 et Gumtree SA pour la recherche',
+        'Budget colocation Le Cap : 3000-6000 ZAR/mois (150-300€)',
+        'Quartiers prisés au Cap : Observatory, Rondebosch, Mowbray (proches de UCT)',
+        'Sécurité : privilégiez les complexes sécurisés avec gardien',
+      ],
+      resources: [
+        { title: 'Property24', url: 'https://www.property24.com/', type: 'site' },
+        { title: 'Gumtree SA', url: 'https://www.gumtree.co.za/', type: 'site' },
+      ],
+    },
+    {
+      id: 'za-banque', themeId: 'budget-banque', title: 'Banque & budget en Afrique du Sud', icon: '💳',
+      description: 'Coût de la vie très avantageux pour les étudiants européens.',
+      tips: [
+        'FNB, Nedbank ou Capitec : comptes étudiants faciles à ouvrir',
+        'TymeBank : 100% digital, sans frais de tenue de compte',
+        'Le rand sud-africain (ZAR) rend la vie très abordable',
+        'Budget étudiant moyen : 6000-10000 ZAR/mois (300-500€)',
+      ],
+      resources: [
+        { title: 'FNB', url: 'https://www.fnb.co.za/', type: 'site' },
+        { title: 'Capitec', url: 'https://www.capitecbank.co.za/', type: 'site' },
+      ],
+    },
+    {
+      id: 'za-vie', themeId: 'vie-quotidienne', title: 'Vie quotidienne en Afrique du Sud', icon: '🍽️',
+      description: 'Un pays incroyable entre nature, diversité culturelle et braai.',
+      tips: [
+        'Le braai (barbecue sud-africain) est une institution : soyez prêt !',
+        'Pick n Pay, Woolworths et Checkers pour les courses',
+        'Load shedding (coupures d\'électricité planifiées) : téléchargez l\'app EskomSePush',
+        '11 langues officielles mais l\'anglais est parlé partout',
+      ],
+      resources: [
+        { title: 'EskomSePush', url: 'https://sepush.co.za/', type: 'app' },
+      ],
+    },
+    {
+      id: 'za-transport', themeId: 'transport', title: 'Se déplacer en Afrique du Sud', icon: '🚗',
+      description: 'Le transport en commun est limité, Uber est votre meilleur allié.',
+      tips: [
+        'Uber et Bolt sont abordables et le moyen le plus sûr de se déplacer',
+        'MyCiTi Bus au Cap : réseau fiable et sécurisé',
+        'Gautrain à Johannesburg : train rapide vers l\'aéroport et Pretoria',
+        'Évitez les minibus taxis si vous ne connaissez pas bien les itinéraires',
+      ],
+      resources: [
+        { title: 'MyCiTi', url: 'https://www.myciti.org.za/', type: 'officiel' },
+        { title: 'Gautrain', url: 'https://www.gautrain.co.za/', type: 'officiel' },
       ],
     },
   ],
