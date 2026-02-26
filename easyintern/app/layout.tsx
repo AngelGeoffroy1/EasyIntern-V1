@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'EasyIntern — Trouvez votre parrain à l\'étranger',
   description:
     'EasyIntern met en relation des étudiants français partant à l\'étranger avec des parrains installés sur place.',
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({
