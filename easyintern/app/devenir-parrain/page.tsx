@@ -9,8 +9,15 @@ import { insertParrain } from '@/lib/parrains';
 import { supabase } from '@/lib/supabase';
 import { ExpertiseCategory, MobilityType } from '@/types';
 import { SUPPORTED_COUNTRIES } from '@/data/countries';
+import { ALL_COUNTRIES } from '@/data/allCountries';
 
 const TOTAL_STEPS = 4;
+
+// Build country list: supported countries first, then the rest
+const supportedEntries = Object.entries(SUPPORTED_COUNTRIES);
+const otherEntries = Object.entries(ALL_COUNTRIES)
+    .filter(([name]) => !(name in SUPPORTED_COUNTRIES))
+    .sort(([a], [b]) => a.localeCompare(b, 'fr'));
 
 const expertiseOptions: { id: ExpertiseCategory; label: string; icon: string }[] = [
     { id: 'logement', label: 'Logement', icon: '🏠' },
@@ -28,7 +35,7 @@ const mobilityOptions: { value: MobilityType; label: string; icon: string; descr
     { value: 'both', label: 'Les deux', icon: '✨', description: 'Échange et stage' },
 ];
 
-const countryFlags = SUPPORTED_COUNTRIES;
+const countryFlags = ALL_COUNTRIES;
 
 type FormData = {
     firstName: string;
@@ -478,11 +485,20 @@ export default function DevenirParrainPage() {
                                             className="w-full appearance-none rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
                                         >
                                             <option value="">Sélectionner un pays</option>
-                                            {Object.entries(countryFlags).map(([country, flag]) => (
-                                                <option key={country} value={country}>
-                                                    {flag} {country}
-                                                </option>
-                                            ))}
+                                            <optgroup label="⭐ Pays avec guide disponible">
+                                                {supportedEntries.map(([country, flag]) => (
+                                                    <option key={country} value={country}>
+                                                        {flag} {country}
+                                                    </option>
+                                                ))}
+                                            </optgroup>
+                                            <optgroup label="🌍 Autres pays">
+                                                {otherEntries.map(([country, flag]) => (
+                                                    <option key={country} value={country}>
+                                                        {flag} {country}
+                                                    </option>
+                                                ))}
+                                            </optgroup>
                                         </select>
                                     </div>
                                     <div className="form-field-stagger">
