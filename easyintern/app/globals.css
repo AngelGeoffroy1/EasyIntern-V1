@@ -54,6 +54,7 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -64,6 +65,7 @@
     opacity: 0;
     transform: translateX(40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -75,6 +77,7 @@
     opacity: 0;
     transform: translateX(-40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -91,13 +94,23 @@
 
 /* Modal animations */
 @keyframes modal-overlay-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes modal-overlay-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes modal-slide-up {
@@ -105,6 +118,7 @@
     opacity: 0;
     transform: translateY(60px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -116,6 +130,7 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(60px) scale(0.97);
@@ -128,6 +143,7 @@
     opacity: 0;
     transform: translateY(20px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -161,6 +177,7 @@
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -171,14 +188,37 @@
   animation: auth-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.auth-field-stagger:nth-child(1) { animation-delay: 0ms; }
-.auth-field-stagger:nth-child(2) { animation-delay: 50ms; }
-.auth-field-stagger:nth-child(3) { animation-delay: 100ms; }
-.auth-field-stagger:nth-child(4) { animation-delay: 150ms; }
-.auth-field-stagger:nth-child(5) { animation-delay: 200ms; }
-.auth-field-stagger:nth-child(6) { animation-delay: 250ms; }
-.auth-field-stagger:nth-child(7) { animation-delay: 300ms; }
-.auth-field-stagger:nth-child(8) { animation-delay: 350ms; }
+.auth-field-stagger:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.auth-field-stagger:nth-child(2) {
+  animation-delay: 50ms;
+}
+
+.auth-field-stagger:nth-child(3) {
+  animation-delay: 100ms;
+}
+
+.auth-field-stagger:nth-child(4) {
+  animation-delay: 150ms;
+}
+
+.auth-field-stagger:nth-child(5) {
+  animation-delay: 200ms;
+}
+
+.auth-field-stagger:nth-child(6) {
+  animation-delay: 250ms;
+}
+
+.auth-field-stagger:nth-child(7) {
+  animation-delay: 300ms;
+}
+
+.auth-field-stagger:nth-child(8) {
+  animation-delay: 350ms;
+}
 
 /* Step form transition animations */
 @keyframes step-slide-right {
@@ -186,6 +226,7 @@
     opacity: 0;
     transform: translateX(50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -197,6 +238,7 @@
     opacity: 0;
     transform: translateX(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -217,6 +259,7 @@
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -227,14 +270,37 @@
   animation: form-field-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.form-field-stagger:nth-child(1) { animation-delay: 0ms; }
-.form-field-stagger:nth-child(2) { animation-delay: 60ms; }
-.form-field-stagger:nth-child(3) { animation-delay: 120ms; }
-.form-field-stagger:nth-child(4) { animation-delay: 180ms; }
-.form-field-stagger:nth-child(5) { animation-delay: 240ms; }
-.form-field-stagger:nth-child(6) { animation-delay: 300ms; }
-.form-field-stagger:nth-child(7) { animation-delay: 360ms; }
-.form-field-stagger:nth-child(8) { animation-delay: 420ms; }
+.form-field-stagger:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.form-field-stagger:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.form-field-stagger:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.form-field-stagger:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.form-field-stagger:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.form-field-stagger:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+.form-field-stagger:nth-child(7) {
+  animation-delay: 360ms;
+}
+
+.form-field-stagger:nth-child(8) {
+  animation-delay: 420ms;
+}
 
 /* Success animation */
 @keyframes success-entrance {
@@ -242,6 +308,7 @@
     opacity: 0;
     transform: translateY(40px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -253,9 +320,17 @@
 }
 
 @keyframes success-check-pop {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .success-checkmark {
@@ -264,11 +339,27 @@
 
 /* Error shake */
 @keyframes error-shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-6px);
+  }
+
+  40% {
+    transform: translateX(6px);
+  }
+
+  60% {
+    transform: translateX(-4px);
+  }
+
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 .error-shake {
@@ -277,11 +368,40 @@
 
 /* Expertise check pop-in */
 @keyframes check-pop {
-  from { transform: scale(0) rotate(-45deg); }
-  to { transform: scale(1) rotate(0deg); }
+  from {
+    transform: scale(0) rotate(-45deg);
+  }
+
+  to {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .expertise-check {
   animation: check-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Navbar menu animations */
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes menuItemFade {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

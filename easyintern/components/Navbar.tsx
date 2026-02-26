@@ -177,10 +177,11 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
           <div ref={menuRef} className="relative">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex items-center gap-2 rounded-full border border-gray-300 px-3 py-2 transition-shadow hover:shadow-md"
+              className="flex items-center gap-2 rounded-full border border-gray-300 px-3 py-2 transition-all hover:shadow-md active:scale-90"
+              style={{ transition: 'transform 0.15s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s' }}
             >
               <svg
-                className="h-4 w-4 text-gray-600"
+                className={`h-4 w-4 text-gray-600 transition-transform duration-300 ${menuOpen ? 'rotate-90' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -192,7 +193,7 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              <div className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-[#1A3B5C] text-xs font-bold text-white">
+              <div className={`flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-[#1A3B5C] text-xs font-bold text-white ring-0 transition-all duration-200 ${menuOpen ? 'ring-2 ring-[#FF385C]/40' : ''}`}>
                 {avatarUrl ? (
                   <img
                     src={avatarUrl}
@@ -215,18 +216,24 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
 
             {/* Dropdown menu */}
             {menuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl border border-gray-200 bg-white py-2 shadow-lg">
+              <div
+                className="absolute right-0 top-full mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white py-2 shadow-lg"
+                style={{
+                  animation: 'menuSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                }}
+              >
                 {/* Mobile-only nav links */}
                 <div className="sm:hidden">
-                  {navLinks.map((link) => (
+                  {navLinks.map((link, i) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className={`block px-4 py-2.5 text-sm transition-colors ${pathname === link.href
+                      className={`block px-4 py-2.5 text-sm transition-all hover:translate-x-0.5 ${pathname === link.href
                         ? 'font-semibold text-[#1A3B5C]'
                         : 'text-gray-700 hover:bg-gray-50'
                         }`}
+                      style={{ animation: `menuItemFade 0.25s ${i * 0.03}s backwards` }}
                     >
                       {link.label}
                     </Link>
@@ -238,7 +245,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                     <Link
                       href="/profil"
                       onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-colors hover:bg-gray-50"
+                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0s backwards' }}
                     >
                       Mon profil
                     </Link>
@@ -246,7 +254,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                       <Link
                         href="/devenir-parrain"
                         onClick={() => setMenuOpen(false)}
-                        className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                        className="block px-4 py-2.5 text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                        style={{ animation: 'menuItemFade 0.25s 0.03s backwards' }}
                       >
                         Devenir parrain
                       </Link>
@@ -255,7 +264,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                       <Link
                         href="/admin"
                         onClick={() => setMenuOpen(false)}
-                        className="block px-4 py-2.5 text-sm font-medium text-[#FF385C] transition-colors hover:bg-red-50"
+                        className="block px-4 py-2.5 text-sm font-medium text-[#FF385C] transition-all hover:translate-x-0.5 hover:bg-red-50"
+                        style={{ animation: 'menuItemFade 0.25s 0.06s backwards' }}
                       >
                         Admin
                       </Link>
@@ -263,7 +273,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                     <Link
                       href="#"
                       onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0.09s backwards' }}
                     >
                       À propos
                     </Link>
@@ -273,7 +284,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                         signOut();
                         setMenuOpen(false);
                       }}
-                      className="block w-full px-4 py-2.5 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      className="block w-full px-4 py-2.5 text-left text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0.12s backwards' }}
                     >
                       Se déconnecter
                     </button>
@@ -283,14 +295,16 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                     <Link
                       href="/auth"
                       onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-colors hover:bg-gray-50"
+                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0s backwards' }}
                     >
                       Se connecter
                     </Link>
                     <Link
                       href="/auth"
                       onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0.03s backwards' }}
                     >
                       Créer un compte
                     </Link>
@@ -299,7 +313,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                       <Link
                         href="/devenir-parrain"
                         onClick={() => setMenuOpen(false)}
-                        className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                        className="block px-4 py-2.5 text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                        style={{ animation: 'menuItemFade 0.25s 0.06s backwards' }}
                       >
                         Devenir parrain
                       </Link>
@@ -307,7 +322,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                     <Link
                       href="#"
                       onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-all hover:translate-x-0.5 hover:bg-gray-50"
+                      style={{ animation: 'menuItemFade 0.25s 0.09s backwards' }}
                     >
                       À propos
                     </Link>
