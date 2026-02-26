@@ -179,3 +179,109 @@
 .auth-field-stagger:nth-child(6) { animation-delay: 250ms; }
 .auth-field-stagger:nth-child(7) { animation-delay: 300ms; }
 .auth-field-stagger:nth-child(8) { animation-delay: 350ms; }
+
+/* Step form transition animations */
+@keyframes step-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes step-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-slide-in-right {
+  animation: step-slide-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.step-slide-in-left {
+  animation: step-slide-left 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Form field stagger animation */
+@keyframes form-field-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-field-stagger {
+  animation: form-field-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.form-field-stagger:nth-child(1) { animation-delay: 0ms; }
+.form-field-stagger:nth-child(2) { animation-delay: 60ms; }
+.form-field-stagger:nth-child(3) { animation-delay: 120ms; }
+.form-field-stagger:nth-child(4) { animation-delay: 180ms; }
+.form-field-stagger:nth-child(5) { animation-delay: 240ms; }
+.form-field-stagger:nth-child(6) { animation-delay: 300ms; }
+.form-field-stagger:nth-child(7) { animation-delay: 360ms; }
+.form-field-stagger:nth-child(8) { animation-delay: 420ms; }
+
+/* Success animation */
+@keyframes success-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.success-entrance {
+  animation: success-entrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes success-check-pop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-checkmark {
+  animation: success-check-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Error shake */
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.error-shake {
+  animation: error-shake 0.4s ease-out;
+}
+
+/* Expertise check pop-in */
+@keyframes check-pop {
+  from { transform: scale(0) rotate(-45deg); }
+  to { transform: scale(1) rotate(0deg); }
+}
+
+.expertise-check {
+  animation: check-pop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+

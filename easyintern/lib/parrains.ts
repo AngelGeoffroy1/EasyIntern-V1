@@ -60,3 +60,32 @@ export async function fetchParrains(): Promise<Parrain[]> {
 
   return (data as ParrainRow[]).map(mapRow);
 }
+
+export type InsertParrainData = {
+  user_id: string;
+  first_name: string;
+  last_name_initial: string;
+  city: string;
+  country: string;
+  country_flag: string;
+  school: string;
+  years_on_site: number;
+  expertise: string[];
+  mobility_type: 'stage' | 'exchange' | 'both';
+  bio: string;
+  email: string;
+  phone: string | null;
+  instagram: string | null;
+  linkedin: string | null;
+  profile_image: string | null;
+};
+
+export async function insertParrain(data: InsertParrainData) {
+  const { data: result, error } = await supabase
+    .from('parrains')
+    .insert([data])
+    .select()
+    .single();
+
+  return { data: result, error };
+}

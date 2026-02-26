@@ -27,12 +27,20 @@ export default function ParrainCard({ parrain, onClick }: ParrainCardProps) {
   return (
     <div className="group cursor-pointer" onClick={() => onClick?.(parrain)}>
       {/* Photo */}
-      <div className="relative mb-3 aspect-square overflow-hidden rounded-xl">
-        <img
-          src={parrain.profileImage}
-          alt={`${parrain.firstName} ${parrain.lastNameInitial}.`}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className="relative mb-3 aspect-square overflow-hidden rounded-xl bg-gray-100">
+        {parrain.profileImage ? (
+          <img
+            src={parrain.profileImage}
+            alt={`${parrain.firstName} ${parrain.lastNameInitial}.`}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#1A3B5C] to-[#2a5580] transition-transform duration-300 group-hover:scale-105">
+            <span className="text-4xl font-bold text-white/80">
+              {parrain.firstName.charAt(0)}{parrain.lastNameInitial}
+            </span>
+          </div>
+        )}
         {badge && (
           <div
             className={`absolute left-3 top-3 flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm ${badge.color}`}

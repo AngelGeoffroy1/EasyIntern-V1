@@ -18,9 +18,9 @@ export default function Footer() {
             <a href="#" className="transition-colors hover:text-[#1A3B5C]">
               Contact
             </a>
-            <a href="#" className="transition-colors hover:text-[#1A3B5C]">
+            <Link href="/devenir-parrain" className="transition-colors hover:text-[#1A3B5C]">
               Devenir parrain
-            </a>
+            </Link>
           </div>
         </div>
       </div>

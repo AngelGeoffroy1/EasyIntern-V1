@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useCallback, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '@/assets/Logo.png';
@@ -9,7 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 type AuthMode = 'signin' | 'signup';
 
-export default function AuthPage() {
+function AuthPageContent() {
   const [mode, setMode] = useState<AuthMode>('signin');
   const [animationKey, setAnimationKey] = useState(0);
   const [email, setEmail] = useState('');
@@ -25,6 +25,8 @@ export default function AuthPage() {
 
   const { signIn, signUp } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/';
 
   const inputClass =
     'w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20';
@@ -60,7 +62,7 @@ export default function AuthPage() {
         ? 'Email ou mot de passe incorrect.'
         : error.message);
     } else {
-      router.push('/');
+      router.push(redirectTo);
     }
   };
 
@@ -104,21 +106,19 @@ export default function AuthPage() {
           <div className="mb-8 flex rounded-full bg-gray-100 p-1">
             <button
               onClick={() => handleModeSwitch('signin')}
-              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${
-                mode === 'signin'
-                  ? 'bg-white text-[#222] shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
+              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${mode === 'signin'
+                ? 'bg-white text-[#222] shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+                }`}
             >
               Se connecter
             </button>
             <button
               onClick={() => handleModeSwitch('signup')}
-              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${
-                mode === 'signup'
-                  ? 'bg-white text-[#222] shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
+              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${mode === 'signup'
+                ? 'bg-white text-[#222] shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+                }`}
             >
               Créer un compte
             </button>
@@ -289,5 +289,20 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <svg className="h-8 w-8 animate-spin text-[#FF385C]" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+      </div>
+    }>
+      <AuthPageContent />
+    </Suspense>
   );
 }
