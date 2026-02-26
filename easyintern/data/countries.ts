@@ -18,4 +18,5 @@ export const SUPPORTED_COUNTRIES: Record<string, string> = {
     'Uruguay': '🇺🇾',
     'Finlande': '🇫🇮',
     'Afrique du Sud': '🇿🇦',
+    'Belgique': '🇧🇪',
 };

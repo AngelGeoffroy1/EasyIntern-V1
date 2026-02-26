@@ -27,6 +27,7 @@ export const destinations: CountryDestination[] = [
   { country: 'Uruguay', flag: '🇺🇾', description: 'Montevideo, Punta del Este, Colonia...' },
   { country: 'Finlande', flag: '🇫🇮', description: 'Helsinki, Tampere, Turku...' },
   { country: 'Afrique du Sud', flag: '🇿🇦', description: 'Le Cap, Johannesburg, Durban...' },
+  { country: 'Belgique', flag: '🇧🇪', description: 'Bruxelles, Louvain-la-Neuve, Gand...' },
 ];
 
 // === GUIDES PAR PAYS (contenu principal) ===
@@ -916,6 +917,92 @@ export const countryGuideCards: Record<string, GuideCard[]> = {
       resources: [
         { title: 'MyCiTi', url: 'https://www.myciti.org.za/', type: 'officiel' },
         { title: 'Gautrain', url: 'https://www.gautrain.co.za/', type: 'officiel' },
+      ],
+    },
+  ],
+
+  'Belgique': [
+    {
+      id: 'be-visa', themeId: 'visa-admin', title: 'Démarches administratives en Belgique', icon: '📋',
+      description: 'En tant que citoyen UE, les formalités sont simplifiées mais l\'inscription communale est obligatoire.',
+      tips: [
+        'Inscription à la commune obligatoire dans les 8 jours après l\'arrivée',
+        'Apportez : passeport/carte d\'identité, contrat de bail, preuve d\'inscription universitaire',
+        'Vous recevrez une carte de séjour (Annexe 8) valable 5 ans',
+        'Le numéro de registre national est nécessaire pour banque, mutuelle et téléphone',
+      ],
+      resources: [
+        { title: 'Belgium.be — Inscription', url: 'https://www.belgium.be/fr/famille/identite/inscription', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'be-logement', themeId: 'logement', title: 'Se loger en Belgique', icon: '🏠',
+      description: 'Un marché locatif accessible avec des kots étudiants typiquement belges.',
+      tips: [
+        'Le "kot" est la chambre étudiante belge : meublé, partagé, abordable',
+        'Immoweb et BruxellesEtudiant pour la recherche',
+        'Budget kot Bruxelles : 400-650€/mois charges comprises',
+        'Louvain-la-Neuve : ville 100% étudiante, kots à partir de 350€',
+        'La garantie locative est de 2-3 mois de loyer, souvent sur un compte bloqué',
+      ],
+      resources: [
+        { title: 'Immoweb', url: 'https://www.immoweb.be/', type: 'site' },
+        { title: 'Kot.brussels', url: 'https://www.bruxelles-logement.be/', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'be-banque', themeId: 'budget-banque', title: 'Banque & budget en Belgique', icon: '💳',
+      description: 'Ouvrir un compte est simple et le coût de la vie est raisonnable.',
+      tips: [
+        'ING, KBC et Belfius proposent des comptes étudiants gratuits',
+        'Numéro de registre national nécessaire pour l\'ouverture',
+        'Bancontact/Payconiq est le moyen de paiement local (pas Visa partout)',
+        'Budget étudiant moyen : 800-1100€/mois à Bruxelles',
+      ],
+      resources: [
+        { title: 'KBC — Compte étudiant', url: 'https://www.kbc.be/', type: 'site' },
+        { title: 'Payconiq by Bancontact', url: 'https://www.payconiq.be/', type: 'app' },
+      ],
+    },
+    {
+      id: 'be-sante', themeId: 'sante-assurance', title: 'Santé & mutuelle en Belgique', icon: '🏥',
+      description: 'Le système belge rembourse environ 75% des frais médicaux via la mutuelle.',
+      tips: [
+        'Inscription à une mutuelle obligatoire (Partenamut, Mutualité Chrétienne, Solidaris...)',
+        'La CEAM française couvre les soins de base mais une mutuelle belge est recommandée',
+        'Consultation chez le médecin : ~25€, remboursée à ~75%',
+        'Les pharmacies de garde fonctionnent 24h/24 le week-end',
+      ],
+      resources: [
+        { title: 'Partenamut', url: 'https://www.partenamut.be/', type: 'site' },
+        { title: 'INAMI', url: 'https://www.inami.fgov.be/', type: 'officiel' },
+      ],
+    },
+    {
+      id: 'be-vie', themeId: 'vie-quotidienne', title: 'Vie quotidienne en Belgique', icon: '🍟',
+      description: 'Frites, bières, gaufres et convivialité : la Belgique a un charme fou.',
+      tips: [
+        'Colruyt, Delhaize et Aldi pour les courses (Colruyt est le moins cher)',
+        'La culture des cafés et brasseries est incontournable : 1500+ bières belges !',
+        'Le folklore étudiant est très présent : baptêmes, guindailles, cercles',
+        'La Belgique est trilingue : français à Bruxelles/Wallonie, néerlandais en Flandre',
+      ],
+      resources: [
+        { title: 'Visit Brussels', url: 'https://www.visit.brussels/', type: 'site' },
+      ],
+    },
+    {
+      id: 'be-transport', themeId: 'transport', title: 'Se déplacer en Belgique', icon: '🚆',
+      description: 'Un petit pays très bien desservi en transports en commun.',
+      tips: [
+        'STIB (Bruxelles) : abonnement étudiant ~50€/an via l\'université',
+        'SNCB : Go Pass 10 trajets pour 53€ (pour les -26 ans)',
+        'TEC (Wallonie) et De Lijn (Flandre) pour les bus régionaux',
+        'Le pays est petit : Bruxelles-Gand en 30 min, Bruxelles-Liège en 50 min',
+      ],
+      resources: [
+        { title: 'STIB — Bruxelles', url: 'https://www.stib-mivb.be/', type: 'officiel' },
+        { title: 'SNCB — Go Pass', url: 'https://www.belgiantrain.be/fr/tickets-and-railcards/gopass1', type: 'officiel' },
       ],
     },
   ],
