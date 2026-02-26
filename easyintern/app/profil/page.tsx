@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { useParrainProfile, ParrainProfile } from '@/hooks/useParrainProfile';
 import { updateParrain } from '@/lib/parrains';
+import { SUPPORTED_COUNTRIES } from '@/data/countries';
 import { ExpertiseCategory, MobilityType } from '@/types';
 
 type Profile = {
@@ -586,16 +587,7 @@ export default function ProfilPage() {
                               setSavingParrain(true);
                               setParrainError('');
 
-                              const countryFlags: Record<string, string> = {
-                                'Espagne': '🇪🇸', 'Allemagne': '🇩🇪', 'Royaume-Uni': '🇬🇧', 'États-Unis': '🇺🇸',
-                                'Canada': '🇨🇦', 'Australie': '🇦🇺', 'Japon': '🇯🇵', 'Corée du Sud': '🇰🇷',
-                                'Italie': '🇮🇹', 'Portugal': '🇵🇹', 'Pays-Bas': '🇳🇱', 'Belgique': '🇧🇪',
-                                'Suisse': '🇨🇭', 'Irlande': '🇮🇪', 'Suède': '🇸🇪', 'Norvège': '🇳🇴',
-                                'Danemark': '🇩🇰', 'Finlande': '🇫🇮', 'Pologne': '🇵🇱', 'Autriche': '🇦🇹',
-                                'Mexique': '🇲🇽', 'Brésil': '🇧🇷', 'Argentine': '🇦🇷', 'Chili': '🇨🇱',
-                                'Colombie': '🇨🇴', 'Chine': '🇨🇳', 'Singapour': '🇸🇬', 'Thaïlande': '🇹🇭',
-                                'Inde': '🇮🇳', 'Uruguay': '🇺🇾', 'Afrique du Sud': '🇿🇦',
-                              };
+                              const countryFlags = SUPPORTED_COUNTRIES;
 
                               const { error } = await updateParrain(parrainProfile.id, {
                                 city: (parrainForm.city || '').trim(),
@@ -632,16 +624,7 @@ export default function ProfilPage() {
                                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Pays</label>
                                 <select value={parrainForm.country || ''} onChange={(e) => setParrainForm((p) => ({ ...p, country: e.target.value }))} className={inputClass}>
                                   <option value="">Sélectionner</option>
-                                  {Object.keys({
-                                    'Espagne': '🇪🇸', 'Allemagne': '🇩🇪', 'Royaume-Uni': '🇬🇧', 'États-Unis': '🇺🇸',
-                                    'Canada': '🇨🇦', 'Australie': '🇦🇺', 'Japon': '🇯🇵', 'Corée du Sud': '🇰🇷',
-                                    'Italie': '🇮🇹', 'Portugal': '🇵🇹', 'Pays-Bas': '🇳🇱', 'Belgique': '🇧🇪',
-                                    'Suisse': '🇨🇭', 'Irlande': '🇮🇪', 'Suède': '🇸🇪', 'Norvège': '🇳🇴',
-                                    'Danemark': '🇩🇰', 'Finlande': '🇫🇮', 'Pologne': '🇵🇱', 'Autriche': '🇦🇹',
-                                    'Mexique': '🇲🇽', 'Brésil': '🇧🇷', 'Argentine': '🇦🇷', 'Chili': '🇨🇱',
-                                    'Colombie': '🇨🇴', 'Chine': '🇨🇳', 'Singapour': '🇸🇬', 'Thaïlande': '🇹🇭',
-                                    'Inde': '🇮🇳', 'Uruguay': '🇺🇾', 'Afrique du Sud': '🇿🇦',
-                                  }).sort().map((c) => <option key={c} value={c}>{c}</option>)}
+                                  {Object.keys(SUPPORTED_COUNTRIES).sort().map((c) => <option key={c} value={c}>{c}</option>)}
                                 </select>
                               </div>
                             </div>

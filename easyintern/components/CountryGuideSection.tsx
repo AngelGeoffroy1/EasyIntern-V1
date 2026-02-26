@@ -4,20 +4,7 @@ type CountryGuideSectionProps = {
   country: string;
 };
 
-const countryFlags: Record<string, string> = {
-  'Royaume-Uni': '🇬🇧',
-  'Espagne': '🇪🇸',
-  'Allemagne': '🇩🇪',
-  'États-Unis': '🇺🇸',
-  'Chine': '🇨🇳',
-  'Australie': '🇦🇺',
-  'Canada': '🇨🇦',
-  'Corée du Sud': '🇰🇷',
-  'Pays-Bas': '🇳🇱',
-  'Irlande': '🇮🇪',
-  'Japon': '🇯🇵',
-  'Portugal': '🇵🇹',
-};
+import { SUPPORTED_COUNTRIES as countryFlags } from '@/data/countries';
 
 export default function CountryGuideSection({ country }: CountryGuideSectionProps) {
   const guide = getCountryGuide(country);

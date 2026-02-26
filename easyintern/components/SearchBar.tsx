@@ -99,13 +99,13 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
         c.name.toLowerCase().includes(city.toLowerCase()) ||
         c.country.toLowerCase().includes(city.toLowerCase())
     );
-  }, [city]);
+  }, [city, allCities]);
 
   // Filter schools based on input
   const filteredSchools = useMemo(() => {
     if (!school) return allSchools;
     return allSchools.filter((s) => s.toLowerCase().includes(school.toLowerCase()));
-  }, [school]);
+  }, [school, allSchools]);
 
   const selectCity = (name: string) => {
     setCity(name);
@@ -152,23 +152,20 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
   return (
     <div
       ref={containerRef}
-      className={`relative transition-all duration-500 ease-in-out overflow-visible ${
-        isCollapsed ? 'max-h-0 opacity-0 py-0 pointer-events-none' : 'max-h-40 opacity-100 py-6'
-      }`}
+      className={`relative transition-all duration-500 ease-in-out overflow-visible ${isCollapsed ? 'max-h-0 opacity-0 py-0 pointer-events-none' : 'max-h-40 opacity-100 py-6'
+        }`}
     >
       <div className="mx-auto max-w-3xl px-4">
         {/* Search bar pill */}
         <div
-          className={`relative flex flex-col items-stretch rounded-full border shadow-sm transition-all sm:flex-row ${
-            activeField ? 'border-gray-300 shadow-lg' : 'border-gray-300 hover:shadow-md'
-          }`}
+          className={`relative flex flex-col items-stretch rounded-full border shadow-sm transition-all sm:flex-row ${activeField ? 'border-gray-300 shadow-lg' : 'border-gray-300 hover:shadow-md'
+            }`}
         >
           {/* Ville */}
           <div
             onClick={() => changeField('city')}
-            className={`relative flex-1 cursor-pointer rounded-full border-b border-gray-200 transition-colors sm:border-b-0 sm:border-r ${
-              activeField === 'city' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
-            }`}
+            className={`relative flex-1 cursor-pointer rounded-full border-b border-gray-200 transition-colors sm:border-b-0 sm:border-r ${activeField === 'city' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
+              }`}
           >
             <label className="absolute left-5 top-2 text-[10px] font-bold uppercase tracking-wide text-gray-800">
               Ville
@@ -188,9 +185,8 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
           {/* École */}
           <div
             onClick={() => changeField('school')}
-            className={`relative flex-1 cursor-pointer rounded-full border-b border-gray-200 transition-colors sm:border-b-0 sm:border-r ${
-              activeField === 'school' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
-            }`}
+            className={`relative flex-1 cursor-pointer rounded-full border-b border-gray-200 transition-colors sm:border-b-0 sm:border-r ${activeField === 'school' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
+              }`}
           >
             <label className="absolute left-5 top-2 text-[10px] font-bold uppercase tracking-wide text-gray-800">
               École
@@ -210,9 +206,8 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
           {/* Mobilité */}
           <div
             onClick={() => changeField('mobility')}
-            className={`relative flex-1 cursor-pointer rounded-full transition-colors ${
-              activeField === 'mobility' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
-            }`}
+            className={`relative flex-1 cursor-pointer rounded-full transition-colors ${activeField === 'mobility' ? 'bg-white' : activeField ? 'bg-gray-50 hover:bg-gray-100' : ''
+              }`}
           >
             <label className="absolute left-5 top-2 text-[10px] font-bold uppercase tracking-wide text-gray-800">
               Mobilité
@@ -242,11 +237,10 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
 
         {/* Dropdown Panel */}
         <div
-          className={`absolute left-1/2 z-40 mt-3 w-full max-w-3xl -translate-x-1/2 px-4 transition-all duration-300 ease-out ${
-            activeField
+          className={`absolute left-1/2 z-40 mt-3 w-full max-w-3xl -translate-x-1/2 px-4 transition-all duration-300 ease-out ${activeField
               ? 'pointer-events-auto translate-y-0 scale-100 opacity-100'
               : 'pointer-events-none -translate-y-2 scale-[0.98] opacity-0'
-          }`}
+            }`}
         >
           <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
             {/* City dropdown */}
@@ -264,9 +258,8 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
                       <button
                         key={c.name}
                         onClick={() => selectCity(c.name)}
-                        className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${
-                          city === c.name ? 'bg-gray-100' : ''
-                        }`}
+                        className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${city === c.name ? 'bg-gray-100' : ''
+                          }`}
                       >
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-lg">
                           {c.flag}
@@ -300,9 +293,8 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
                       <button
                         key={s}
                         onClick={() => selectSchool(s)}
-                        className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${
-                          school === s ? 'bg-gray-100' : ''
-                        }`}
+                        className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${school === s ? 'bg-gray-100' : ''
+                          }`}
                       >
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-lg">
                           🎓
@@ -333,9 +325,8 @@ export default function SearchBar({ parrains, onSearch, isCollapsed = false, ope
                       <button
                         key={opt.value}
                         onClick={() => selectMobility(opt.value)}
-                        className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${
-                          mobility === opt.value ? 'bg-gray-100' : ''
-                        }`}
+                        className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-gray-100 ${mobility === opt.value ? 'bg-gray-100' : ''
+                          }`}
                       >
                         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-lg">
                           {opt.icon}

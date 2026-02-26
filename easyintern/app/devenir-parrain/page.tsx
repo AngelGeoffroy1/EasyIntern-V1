@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { insertParrain } from '@/lib/parrains';
 import { supabase } from '@/lib/supabase';
 import { ExpertiseCategory, MobilityType } from '@/types';
+import { SUPPORTED_COUNTRIES } from '@/data/countries';
 
 const TOTAL_STEPS = 4;
 
@@ -27,16 +28,7 @@ const mobilityOptions: { value: MobilityType; label: string; icon: string; descr
     { value: 'both', label: 'Les deux', icon: '✨', description: 'Échange et stage' },
 ];
 
-const countryFlags: Record<string, string> = {
-    'Espagne': '🇪🇸', 'Allemagne': '🇩🇪', 'Royaume-Uni': '🇬🇧', 'États-Unis': '🇺🇸',
-    'Canada': '🇨🇦', 'Australie': '🇦🇺', 'Japon': '🇯🇵', 'Corée du Sud': '🇰🇷',
-    'Italie': '🇮🇹', 'Portugal': '🇵🇹', 'Pays-Bas': '🇳🇱', 'Belgique': '🇧🇪',
-    'Suisse': '🇨🇭', 'Irlande': '🇮🇪', 'Suède': '🇸🇪', 'Norvège': '🇳🇴',
-    'Danemark': '🇩🇰', 'Finlande': '🇫🇮', 'Pologne': '🇵🇱', 'Autriche': '🇦🇹',
-    'Mexique': '🇲🇽', 'Brésil': '🇧🇷', 'Argentine': '🇦🇷', 'Chili': '🇨🇱',
-    'Colombie': '🇨🇴', 'Chine': '🇨🇳', 'Singapour': '🇸🇬', 'Thaïlande': '🇹🇭',
-    'Inde': '🇮🇳', 'Uruguay': '🇺🇾', 'Afrique du Sud': '🇿🇦',
-};
+const countryFlags = SUPPORTED_COUNTRIES;
 
 type FormData = {
     firstName: string;
