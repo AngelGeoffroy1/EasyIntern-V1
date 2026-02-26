@@ -95,7 +95,7 @@ export default function ParrainModal({ parrain, onClose }: ParrainModalProps) {
                 <div className="relative aspect-square w-32 sm:w-full overflow-hidden rounded-2xl shadow-sm border border-gray-100">
                   <img
                     src={parrain.profileImage}
-                    alt={`${parrain.firstName} ${parrain.lastNameInitial}.`}
+                    alt={`${parrain.firstName} ${parrain.lastName}`}
                     className="h-full w-full object-cover"
                   />
                   {badge && (
@@ -191,7 +191,7 @@ export default function ParrainModal({ parrain, onClose }: ParrainModalProps) {
                 <div className="flex justify-between items-end sm:items-start">
                   <div className="text-left w-full sm:w-auto">
                     <h2 className="text-3xl font-bold text-[#222]">
-                      {parrain.firstName} {parrain.lastNameInitial}.
+                      {parrain.firstName} {parrain.lastName}
                     </h2>
                     <p className="mt-1 text-base text-gray-500 flex items-center gap-1.5">
                       <span className="text-lg">{parrain.countryFlag}</span>

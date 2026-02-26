@@ -434,7 +434,7 @@ export default function ProfilPage() {
                             )}
                           </div>
                           <h2 className="text-xl font-bold text-[#222]">
-                            {parrainProfile.first_name} {parrainProfile.last_name_initial}.
+                            {parrainProfile.first_name} {parrainProfile.last_name}
                           </h2>
                           <p className="mt-1 text-sm text-gray-500">
                             {parrainProfile.country_flag} {parrainProfile.city}, {parrainProfile.country}

@@ -62,7 +62,7 @@ export default function AdminParrainsPage() {
     setEditParrain(p);
     setEditForm({
       first_name: p.first_name,
-      last_name_initial: p.last_name_initial,
+      last_name: p.last_name,
       city: p.city,
       country: p.country,
       country_flag: p.country_flag,
@@ -170,9 +170,8 @@ export default function AdminParrainsPage() {
       </div>
 
       {message && (
-        <div className={`mb-4 rounded-xl px-4 py-3 text-sm font-medium ${
-          message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-        }`}>
+        <div className={`mb-4 rounded-xl px-4 py-3 text-sm font-medium ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+          }`}>
           {message.text}
         </div>
       )}
@@ -214,7 +213,7 @@ export default function AdminParrainsPage() {
                     </div>
                     <div>
                       <p className="font-medium text-[#222]">
-                        {p.first_name} {p.last_name_initial}.
+                        {p.first_name} {p.last_name}
                       </p>
                       {p.email && <p className="text-xs text-gray-400">{p.email}</p>}
                     </div>
@@ -234,12 +233,11 @@ export default function AdminParrainsPage() {
                       handleBadgeChange(p.id, val === '' ? null : (val as Badge));
                     }}
                     disabled={actionLoading === p.id}
-                    className={`rounded-lg border px-2 py-1 text-xs font-medium outline-none ${
-                      p.badge === 'gold' ? 'border-yellow-200 bg-yellow-50 text-yellow-700' :
-                      p.badge === 'silver' ? 'border-gray-300 bg-gray-100 text-gray-700' :
-                      p.badge === 'bronze' ? 'border-orange-200 bg-orange-50 text-orange-700' :
-                      'border-gray-200 bg-gray-50 text-gray-500'
-                    }`}
+                    className={`rounded-lg border px-2 py-1 text-xs font-medium outline-none ${p.badge === 'gold' ? 'border-yellow-200 bg-yellow-50 text-yellow-700' :
+                        p.badge === 'silver' ? 'border-gray-300 bg-gray-100 text-gray-700' :
+                          p.badge === 'bronze' ? 'border-orange-200 bg-orange-50 text-orange-700' :
+                            'border-gray-200 bg-gray-50 text-gray-500'
+                      }`}
                   >
                     {badgeOptions.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -344,12 +342,11 @@ export default function AdminParrainsPage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-gray-500">Initiale nom</label>
+                  <label className="mb-1 block text-xs font-medium text-gray-500">Nom de famille</label>
                   <input
                     type="text"
-                    maxLength={1}
-                    value={editForm.last_name_initial ?? ''}
-                    onChange={(e) => setEditForm((f) => ({ ...f, last_name_initial: e.target.value.toUpperCase() }))}
+                    value={editForm.last_name ?? ''}
+                    onChange={(e) => setEditForm((f) => ({ ...f, last_name: e.target.value }))}
                     className={inputClass}
                   />
                 </div>
@@ -470,11 +467,10 @@ export default function AdminParrainsPage() {
                         key={opt.value}
                         type="button"
                         onClick={() => toggleExpertise(opt.value)}
-                        className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-                          active
+                        className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${active
                             ? 'bg-[#FF385C] text-white'
                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
+                          }`}
                       >
                         {opt.label}
                       </button>

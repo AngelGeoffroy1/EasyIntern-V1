@@ -63,7 +63,7 @@ export async function deleteUser(userId: string) {
 
 export type ParrainUpdates = {
   first_name?: string;
-  last_name_initial?: string;
+  last_name?: string;
   city?: string;
   country?: string;
   country_flag?: string;

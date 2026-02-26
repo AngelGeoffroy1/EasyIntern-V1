@@ -18,7 +18,7 @@ export type AdminParrain = {
   id: string;
   user_id: string | null;
   first_name: string;
-  last_name_initial: string;
+  last_name: string;
   city: string;
   country: string;
   country_flag: string;
@@ -63,7 +63,7 @@ export type ExpertiseCategory =
 export type Parrain = {
   id: string;
   firstName: string;
-  lastNameInitial: string;
+  lastName: string;
   city: string;
   country: string;
   countryFlag: string;

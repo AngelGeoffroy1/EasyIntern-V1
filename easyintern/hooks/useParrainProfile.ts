@@ -7,7 +7,7 @@ import { fetchParrainByUserId } from '@/lib/parrains';
 export type ParrainProfile = {
     id: string;
     first_name: string;
-    last_name_initial: string;
+    last_name: string;
     city: string;
     country: string;
     country_flag: string;

@@ -31,13 +31,13 @@ export default function ParrainCard({ parrain, onClick }: ParrainCardProps) {
         {parrain.profileImage ? (
           <img
             src={parrain.profileImage}
-            alt={`${parrain.firstName} ${parrain.lastNameInitial}.`}
+            alt={`${parrain.firstName} ${parrain.lastName}`}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#1A3B5C] to-[#2a5580] transition-transform duration-300 group-hover:scale-105">
             <span className="text-4xl font-bold text-white/80">
-              {parrain.firstName.charAt(0)}{parrain.lastNameInitial}
+              {parrain.firstName.charAt(0)}{parrain.lastName.charAt(0)}
             </span>
           </div>
         )}
@@ -56,7 +56,7 @@ export default function ParrainCard({ parrain, onClick }: ParrainCardProps) {
         {/* Nom + Note */}
         <div className="flex items-start justify-between">
           <h3 className="font-semibold text-[#222]">
-            {parrain.firstName} {parrain.lastNameInitial}.
+            {parrain.firstName} {parrain.lastName}
           </h3>
           <div className="flex items-center gap-1 text-sm">
             <svg className="h-3.5 w-3.5 text-[#222]" fill="currentColor" viewBox="0 0 24 24">

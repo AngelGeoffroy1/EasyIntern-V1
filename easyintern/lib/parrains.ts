@@ -5,7 +5,7 @@ type ParrainRow = {
   id: string;
   user_id: string | null;
   first_name: string;
-  last_name_initial: string;
+  last_name: string;
   city: string;
   country: string;
   country_flag: string;
@@ -28,7 +28,7 @@ function mapRow(row: ParrainRow): Parrain {
   return {
     id: row.id,
     firstName: row.first_name,
-    lastNameInitial: row.last_name_initial,
+    lastName: row.last_name,
     city: row.city,
     country: row.country,
     countryFlag: row.country_flag,
@@ -87,7 +87,7 @@ export async function updateParrain(parrainId: string, updates: Partial<Omit<Par
 export type InsertParrainData = {
   user_id: string;
   first_name: string;
-  last_name_initial: string;
+  last_name: string;
   city: string;
   country: string;
   country_flag: string;

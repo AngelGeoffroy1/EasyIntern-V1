@@ -73,9 +73,8 @@ export default function AdminDashboard() {
                     <p className="text-xs text-gray-500">{u.email}</p>
                   </div>
                   <div className="text-right">
-                    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                      u.role === 'admin' ? 'bg-red-100 text-red-700' : 'bg-gray-200 text-gray-600'
-                    }`}>
+                    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${u.role === 'admin' ? 'bg-red-100 text-red-700' : 'bg-gray-200 text-gray-600'
+                      }`}>
                       {u.role}
                     </span>
                     <p className="mt-0.5 text-xs text-gray-400">
@@ -99,7 +98,7 @@ export default function AdminDashboard() {
                 <div key={p.id} className="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3">
                   <div>
                     <p className="text-sm font-medium text-[#222]">
-                      {p.first_name} {p.last_name_initial}.
+                      {p.first_name} {p.last_name}
                     </p>
                     <p className="text-xs text-gray-500">
                       {p.country_flag} {p.city}, {p.country}
@@ -107,11 +106,10 @@ export default function AdminDashboard() {
                   </div>
                   <div className="text-right">
                     {p.badge && (
-                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                        p.badge === 'gold' ? 'bg-yellow-100 text-yellow-700' :
-                        p.badge === 'silver' ? 'bg-gray-200 text-gray-700' :
-                        'bg-orange-100 text-orange-700'
-                      }`}>
+                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${p.badge === 'gold' ? 'bg-yellow-100 text-yellow-700' :
+                          p.badge === 'silver' ? 'bg-gray-200 text-gray-700' :
+                            'bg-orange-100 text-orange-700'
+                        }`}>
                         {p.badge}
                       </span>
                     )}

@@ -252,7 +252,6 @@ export default function DevenirParrainPage() {
 
         try {
             const flag = countryFlags[form.country] || '🌍';
-            const lastNameInitial = form.lastName.charAt(0).toUpperCase();
 
             // Upload avatar if selected
             let avatarUrl: string | null = null;
@@ -268,7 +267,7 @@ export default function DevenirParrainPage() {
             const { error: insertError } = await insertParrain({
                 user_id: user.id,
                 first_name: form.firstName.trim(),
-                last_name_initial: lastNameInitial,
+                last_name: form.lastName.trim(),
                 city: form.city.trim(),
                 country: form.country.trim(),
                 country_flag: flag,
@@ -758,7 +757,7 @@ export default function DevenirParrainPage() {
                                             )}
                                             <div>
                                                 <p className="font-semibold text-[#222]">
-                                                    {form.firstName || 'Prénom'} {form.lastName ? form.lastName.charAt(0).toUpperCase() + '.' : 'N.'}
+                                                    {form.firstName || 'Prénom'} {form.lastName || 'Nom'}
                                                 </p>
                                                 <p className="text-sm text-gray-500">
                                                     {form.country ? (countryFlags[form.country] || '🌍') + ' ' : ''}

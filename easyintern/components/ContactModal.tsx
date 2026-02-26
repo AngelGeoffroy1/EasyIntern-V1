@@ -79,7 +79,7 @@ export default function ContactModal({ parrain, onClose }: ContactModalProps) {
           />
           <div>
             <h3 className="text-lg font-bold text-[#222]">
-              Contacter {parrain.firstName} {parrain.lastNameInitial}.
+              Contacter {parrain.firstName} {parrain.lastName}
             </h3>
             <p className="text-sm text-gray-500 flex items-center gap-1">
               <span>{parrain.countryFlag}</span> {parrain.city}, {parrain.country}
