@@ -95,6 +95,14 @@ export default function Home() {
       />
 
       <main className="flex-1">
+        <div className="mx-auto max-w-7xl px-6 pt-10 pb-2">
+          <h1 className="text-3xl font-bold text-[#222] sm:text-4xl">
+            Trouve ton parrain
+          </h1>
+          <p className="mt-2 text-gray-500 sm:text-lg">
+            Des étudiants expatriés prêts à t&apos;accompagner dans ton aventure à l&apos;étranger.
+          </p>
+        </div>
         <div ref={searchBarRef}>
           <SearchBar parrains={parrains} onSearch={setSearchFilters} isCollapsed={isSearchCollapsed} openField={pendingField} onOpenFieldConsumed={() => setPendingField(null)} />
         </div>
