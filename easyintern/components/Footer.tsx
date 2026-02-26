@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useParrainProfile } from '@/hooks/useParrainProfile';
 
 export default function Footer() {
+  const { isParrain } = useParrainProfile();
+
   return (
     <footer className="border-t border-gray-200 bg-gray-50">
       <div className="mx-auto max-w-7xl px-6 py-8">
@@ -18,9 +23,11 @@ export default function Footer() {
             <a href="#" className="transition-colors hover:text-[#1A3B5C]">
               Contact
             </a>
-            <Link href="/devenir-parrain" className="transition-colors hover:text-[#1A3B5C]">
-              Devenir parrain
-            </Link>
+            {!isParrain && (
+              <Link href="/devenir-parrain" className="transition-colors hover:text-[#1A3B5C]">
+                Devenir parrain
+              </Link>
+            )}
           </div>
         </div>
       </div>

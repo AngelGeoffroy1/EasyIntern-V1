@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/assets/Logo.png';
 import { useAuth } from '@/contexts/AuthContext';
+import { useParrainProfile } from '@/hooks/useParrainProfile';
 
 type NavbarProps = {
   onCompactSearchClick?: (field?: 'city' | 'school' | 'mobility') => void;
@@ -24,6 +25,7 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { user, signOut } = useAuth();
+  const { isParrain } = useParrainProfile();
 
   const userInitial = user?.user_metadata?.first_name
     ? (user.user_metadata.first_name as string).charAt(0).toUpperCase()
@@ -77,8 +79,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                 key={link.href}
                 href={link.href}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${pathname === link.href
-                    ? 'bg-gray-100 text-[#1A3B5C]'
-                    : 'text-gray-500 hover:bg-gray-50 hover:text-[#222]'
+                  ? 'bg-gray-100 text-[#1A3B5C]'
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-[#222]'
                   }`}
               >
                 {link.label}
@@ -139,9 +141,11 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <Link href="/devenir-parrain" className="hidden rounded-full px-4 py-2 text-sm font-medium text-[#1A3B5C] transition-colors hover:bg-gray-100 sm:block">
-            Devenir parrain
-          </Link>
+          {!isParrain && (
+            <Link href="/devenir-parrain" className="hidden rounded-full px-4 py-2 text-sm font-medium text-[#1A3B5C] transition-colors hover:bg-gray-100 sm:block">
+              Devenir parrain
+            </Link>
+          )}
 
           {/* Hamburger menu button */}
           <div ref={menuRef} className="relative">
@@ -188,8 +192,8 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
                       className={`block px-4 py-2.5 text-sm transition-colors ${pathname === link.href
-                          ? 'font-semibold text-[#1A3B5C]'
-                          : 'text-gray-700 hover:bg-gray-50'
+                        ? 'font-semibold text-[#1A3B5C]'
+                        : 'text-gray-700 hover:bg-gray-50'
                         }`}
                     >
                       {link.label}
@@ -206,13 +210,15 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                     >
                       Mon profil
                     </Link>
-                    <Link
-                      href="/devenir-parrain"
-                      onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                    >
-                      Devenir parrain
-                    </Link>
+                    {!isParrain && (
+                      <Link
+                        href="/devenir-parrain"
+                        onClick={() => setMenuOpen(false)}
+                        className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      >
+                        Devenir parrain
+                      </Link>
+                    )}
                     <Link
                       href="#"
                       onClick={() => setMenuOpen(false)}
@@ -248,13 +254,15 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                       Créer un compte
                     </Link>
                     <div className="my-1 border-t border-gray-100" />
-                    <Link
-                      href="/devenir-parrain"
-                      onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                    >
-                      Devenir parrain
-                    </Link>
+                    {!isParrain && (
+                      <Link
+                        href="/devenir-parrain"
+                        onClick={() => setMenuOpen(false)}
+                        className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                      >
+                        Devenir parrain
+                      </Link>
+                    )}
                     <Link
                       href="#"
                       onClick={() => setMenuOpen(false)}

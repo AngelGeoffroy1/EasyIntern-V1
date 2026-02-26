@@ -3,6 +3,7 @@ import { Parrain } from '@/types';
 
 type ParrainRow = {
   id: string;
+  user_id: string | null;
   first_name: string;
   last_name_initial: string;
   city: string;
@@ -59,6 +60,28 @@ export async function fetchParrains(): Promise<Parrain[]> {
   }
 
   return (data as ParrainRow[]).map(mapRow);
+}
+
+export async function fetchParrainByUserId(userId: string): Promise<ParrainRow | null> {
+  const { data, error } = await supabase
+    .from('parrains')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+
+  if (error || !data) return null;
+  return data as ParrainRow;
+}
+
+export async function updateParrain(parrainId: string, updates: Partial<Omit<ParrainRow, 'id' | 'user_id' | 'rating' | 'review_count' | 'badge'>>) {
+  const { data, error } = await supabase
+    .from('parrains')
+    .update(updates)
+    .eq('id', parrainId)
+    .select()
+    .single();
+
+  return { data, error };
 }
 
 export type InsertParrainData = {
