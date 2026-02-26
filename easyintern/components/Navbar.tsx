@@ -26,10 +26,34 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
   const pathname = usePathname();
   const { user, signOut } = useAuth();
   const { isParrain } = useParrainProfile();
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const userInitial = user?.user_metadata?.first_name
     ? (user.user_metadata.first_name as string).charAt(0).toUpperCase()
     : null;
+
+  useEffect(() => {
+    if (user) {
+      if (user.user_metadata?.avatar_url) {
+        setAvatarUrl(user.user_metadata.avatar_url);
+      } else {
+        const fetchAvatar = async () => {
+          const { supabase } = await import('@/lib/supabase');
+          const { data } = await supabase
+            .from('profiles')
+            .select('avatar_url')
+            .eq('id', user.id)
+            .single();
+          if (data?.avatar_url) {
+            setAvatarUrl(data.avatar_url);
+          }
+        };
+        fetchAvatar();
+      }
+    } else {
+      setAvatarUrl(null);
+    }
+  }, [user]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -166,8 +190,14 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1A3B5C] text-xs font-bold text-white">
-                {userInitial ? (
+              <div className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-[#1A3B5C] text-xs font-bold text-white">
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt="Avatar"
+                    className="h-full w-full object-cover"
+                  />
+                ) : userInitial ? (
                   userInitial
                 ) : (
                   <svg
