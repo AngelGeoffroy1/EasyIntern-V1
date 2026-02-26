@@ -1,0 +1,54 @@
+import { supabase } from './supabase';
+import { Parrain } from '@/types';
+
+type ParrainRow = {
+  id: string;
+  first_name: string;
+  last_name_initial: string;
+  city: string;
+  country: string;
+  country_flag: string;
+  school: string;
+  rating: number;
+  review_count: number;
+  years_on_site: number;
+  expertise: string[];
+  badge: 'gold' | 'silver' | 'bronze' | null;
+  bio: string;
+  profile_image: string | null;
+  mobility_type: 'stage' | 'exchange' | 'both';
+};
+
+function mapRow(row: ParrainRow): Parrain {
+  return {
+    id: row.id,
+    firstName: row.first_name,
+    lastNameInitial: row.last_name_initial,
+    city: row.city,
+    country: row.country,
+    countryFlag: row.country_flag,
+    school: row.school,
+    rating: Number(row.rating),
+    reviewCount: row.review_count,
+    yearsOnSite: row.years_on_site,
+    expertise: row.expertise as Parrain['expertise'],
+    badge: row.badge,
+    bio: row.bio,
+    profileImage: row.profile_image ?? '',
+    mobilityType: row.mobility_type,
+  };
+}
+
+export async function fetchParrains(): Promise<Parrain[]> {
+  const { data, error } = await supabase
+    .from('parrains')
+    .select('*')
+    .order('first_name');
+
+  if (error) {
+    console.error('Error fetching parrains:', error);
+    return [];
+  }
+
+  return (data as ParrainRow[]).map(mapRow);
+}

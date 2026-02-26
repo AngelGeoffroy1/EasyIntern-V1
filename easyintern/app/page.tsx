@@ -8,11 +8,13 @@ import ParrainGrid from '@/components/ParrainGrid';
 import ParrainModal from '@/components/ParrainModal';
 import AuthModal from '@/components/AuthModal';
 import Footer from '@/components/Footer';
-import { parrains } from '@/data/parrains';
+import { fetchParrains } from '@/lib/parrains';
 import { ExpertiseCategory, Parrain } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Home() {
+  const [parrains, setParrains] = useState<Parrain[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<ExpertiseCategory | 'all'>('all');
   const [searchFilters, setSearchFilters] = useState({
     city: '',
@@ -25,6 +27,13 @@ export default function Home() {
   const [pendingField, setPendingField] = useState<'city' | 'school' | 'mobility' | null>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
+
+  useEffect(() => {
+    fetchParrains().then((data) => {
+      setParrains(data);
+      setLoading(false);
+    });
+  }, []);
 
   const handleParrainClick = (parrain: Parrain) => {
     if (user) {
@@ -75,7 +84,7 @@ export default function Home() {
       }
       return true;
     });
-  }, [selectedCategory, searchFilters]);
+  }, [parrains, selectedCategory, searchFilters]);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -87,7 +96,7 @@ export default function Home() {
 
       <main className="flex-1">
         <div ref={searchBarRef}>
-          <SearchBar onSearch={setSearchFilters} isCollapsed={isSearchCollapsed} openField={pendingField} onOpenFieldConsumed={() => setPendingField(null)} />
+          <SearchBar parrains={parrains} onSearch={setSearchFilters} isCollapsed={isSearchCollapsed} openField={pendingField} onOpenFieldConsumed={() => setPendingField(null)} />
         </div>
         <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
         <ParrainGrid

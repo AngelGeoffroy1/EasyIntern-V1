@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { parrains } from '@/data/parrains';
+import { Parrain } from '@/types';
 
 type SearchBarProps = {
+  parrains: Parrain[];
   onSearch: (filters: { city: string; school: string; mobility: string }) => void;
   isCollapsed?: boolean;
   openField?: 'city' | 'school' | 'mobility' | null;
@@ -14,11 +15,6 @@ type ActiveField = 'city' | 'school' | 'mobility' | null;
 
 const fieldOrder: ActiveField[] = ['city', 'school', 'mobility'];
 
-// Extract unique suggestions from data
-const allCities = Array.from(
-  new Map(parrains.map((p) => [p.city, { name: p.city, flag: p.countryFlag, country: p.country }])).values()
-);
-const allSchools = Array.from(new Set(parrains.map((p) => p.school)));
 const mobilityOptions = [
   { value: '', label: 'Tous types', icon: '✨' },
   { value: 'exchange', label: 'Échange universitaire', icon: '🎓' },
@@ -38,13 +34,18 @@ function ClearButton({ onClick }: { onClick: (e: React.MouseEvent) => void }) {
   );
 }
 
-export default function SearchBar({ onSearch, isCollapsed = false, openField, onOpenFieldConsumed }: SearchBarProps) {
+export default function SearchBar({ parrains, onSearch, isCollapsed = false, openField, onOpenFieldConsumed }: SearchBarProps) {
   const [city, setCity] = useState('');
   const [school, setSchool] = useState('');
   const [mobility, setMobility] = useState('');
   const [activeField, setActiveField] = useState<ActiveField>(null);
   const [prevField, setPrevField] = useState<ActiveField>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const allCities = useMemo(() => Array.from(
+    new Map(parrains.map((p) => [p.city, { name: p.city, flag: p.countryFlag, country: p.country }])).values()
+  ), [parrains]);
+  const allSchools = useMemo(() => Array.from(new Set(parrains.map((p) => p.school))), [parrains]);
 
   // Track direction for slide animation
   const slideDirection = useMemo(() => {
