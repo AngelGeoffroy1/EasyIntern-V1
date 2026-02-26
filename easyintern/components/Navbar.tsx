@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/assets/Logo.png';
+import { useAuth } from '@/contexts/AuthContext';
 
 type NavbarProps = {
   onCompactSearchClick?: (field?: 'city' | 'school' | 'mobility') => void;
@@ -22,6 +23,11 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const { user, signOut } = useAuth();
+
+  const userInitial = user?.user_metadata?.first_name
+    ? (user.user_metadata.first_name as string).charAt(0).toUpperCase()
+    : null;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -157,14 +163,18 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1A3B5C] text-xs text-white">
-                <svg
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1A3B5C] text-xs font-bold text-white">
+                {userInitial ? (
+                  userInitial
+                ) : (
+                  <svg
+                    className="h-4 w-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                )}
               </div>
             </button>
 
@@ -189,27 +199,66 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                   ))}
                   <div className="my-1 border-t border-gray-100" />
                 </div>
-                <Link
-                  href="#"
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                >
-                  Devenir parrain
-                </Link>
-                <Link
-                  href="#"
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                >
-                  À propos
-                </Link>
-                <Link
-                  href="#"
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
-                >
-                  Contact
-                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      href="#"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      Devenir parrain
+                    </Link>
+                    <Link
+                      href="#"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      À propos
+                    </Link>
+                    <div className="my-1 border-t border-gray-100" />
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setMenuOpen(false);
+                      }}
+                      className="block w-full px-4 py-2.5 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      Se déconnecter
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-colors hover:bg-gray-50"
+                    >
+                      Se connecter
+                    </Link>
+                    <Link
+                      href="/auth"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      Créer un compte
+                    </Link>
+                    <div className="my-1 border-t border-gray-100" />
+                    <Link
+                      href="#"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      Devenir parrain
+                    </Link>
+                    <Link
+                      href="#"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                    >
+                      À propos
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>

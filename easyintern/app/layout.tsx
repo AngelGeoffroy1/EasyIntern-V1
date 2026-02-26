@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
   title: 'EasyIntern — Trouvez votre parrain à l\'étranger',
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="antialiased" style={{ fontFamily: "'Airbnb Cereal', sans-serif" }}>{children}</body>
+      <body className="antialiased" style={{ fontFamily: "'Airbnb Cereal', sans-serif" }}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

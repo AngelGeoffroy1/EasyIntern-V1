@@ -6,9 +6,11 @@ import SearchBar from '@/components/SearchBar';
 import CategoryFilter from '@/components/CategoryFilter';
 import ParrainGrid from '@/components/ParrainGrid';
 import ParrainModal from '@/components/ParrainModal';
+import AuthModal from '@/components/AuthModal';
 import Footer from '@/components/Footer';
 import { parrains } from '@/data/parrains';
 import { ExpertiseCategory, Parrain } from '@/types';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<ExpertiseCategory | 'all'>('all');
@@ -19,8 +21,18 @@ export default function Home() {
   });
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(false);
   const [selectedParrain, setSelectedParrain] = useState<Parrain | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState<string | null>(null);
   const [pendingField, setPendingField] = useState<'city' | 'school' | 'mobility' | null>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
+
+  const handleParrainClick = (parrain: Parrain) => {
+    if (user) {
+      setSelectedParrain(parrain);
+    } else {
+      setShowAuthModal(parrain.firstName);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +92,7 @@ export default function Home() {
         <CategoryFilter selected={selectedCategory} onSelect={setSelectedCategory} />
         <ParrainGrid
           parrains={filteredParrains}
-          onParrainClick={setSelectedParrain}
+          onParrainClick={handleParrainClick}
           animationKey={`${selectedCategory}-${searchFilters.city}-${searchFilters.school}-${searchFilters.mobility}`}
         />
       </main>
@@ -89,6 +101,10 @@ export default function Home() {
 
       {selectedParrain && (
         <ParrainModal parrain={selectedParrain} onClose={() => setSelectedParrain(null)} />
+      )}
+
+      {showAuthModal && (
+        <AuthModal parrainFirstName={showAuthModal} onClose={() => setShowAuthModal(null)} />
       )}
     </div>
   );
