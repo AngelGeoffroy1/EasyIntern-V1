@@ -10,6 +10,7 @@ const adminNav = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/users', label: 'Utilisateurs', icon: '👤' },
   { href: '/admin/parrains', label: 'Parrains', icon: '🤝' },
+  { href: '/admin/guides', label: 'Guides', icon: '📚' },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -42,9 +43,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
       <aside
-        className={`sticky top-0 flex h-screen flex-col border-r border-gray-200 bg-white transition-all duration-200 ${
-          collapsed ? 'w-[68px]' : 'w-64'
-        }`}
+        className={`sticky top-0 flex h-screen flex-col border-r border-gray-200 bg-white transition-all duration-200 ${collapsed ? 'w-[68px]' : 'w-64'
+          }`}
       >
         {/* Header */}
         <div className="flex h-16 items-center justify-between border-b border-gray-200 px-3">
@@ -60,9 +60,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className={`flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 ${
-              collapsed ? 'mx-auto' : ''
-            }`}
+            className={`flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 ${collapsed ? 'mx-auto' : ''
+              }`}
             title={collapsed ? 'Ouvrir le menu' : 'Replier le menu'}
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,11 +83,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={item.href}
                 href={item.href}
                 title={collapsed ? item.label : undefined}
-                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-                  active
+                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${active
                     ? 'bg-[#FF385C]/10 text-[#FF385C]'
                     : 'text-gray-600 hover:bg-gray-100 hover:text-[#222]'
-                } ${collapsed ? 'justify-center' : ''}`}
+                  } ${collapsed ? 'justify-center' : ''}`}
               >
                 <span className="text-base">{item.icon}</span>
                 {!collapsed && item.label}
@@ -102,9 +100,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link
             href="/"
             title={collapsed ? 'Retour au site' : undefined}
-            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-[#222] ${
-              collapsed ? 'justify-center' : ''
-            }`}
+            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-[#222] ${collapsed ? 'justify-center' : ''
+              }`}
           >
             <span className="text-base">←</span>
             {!collapsed && 'Retour au site'}
