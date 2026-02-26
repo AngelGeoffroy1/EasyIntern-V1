@@ -1,5 +1,6 @@
 import { Parrain } from '@/types';
 import ParrainCard from './ParrainCard';
+import GlobeSection from './GlobeSection';
 
 type ParrainGridProps = {
   parrains: Parrain[];
@@ -20,17 +21,32 @@ export default function ParrainGrid({ parrains, onParrainClick, animationKey }: 
     );
   }
 
+  const firstLineParrains = parrains.slice(0, 5);
+  const restParrains = parrains.slice(5);
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div
         key={animationKey}
         className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
       >
-        {parrains.map((parrain, index) => (
+        {firstLineParrains.map((parrain, index) => (
           <div
             key={parrain.id}
             className="card-animate"
             style={{ animationDelay: `${index * 60}ms` }}
+          >
+            <ParrainCard parrain={parrain} onClick={onParrainClick} />
+          </div>
+        ))}
+
+        <GlobeSection parrains={parrains} />
+
+        {restParrains.map((parrain, index) => (
+          <div
+            key={parrain.id}
+            className="card-animate"
+            style={{ animationDelay: `${(index + 5) * 60}ms` }}
           >
             <ParrainCard parrain={parrain} onClick={onParrainClick} />
           </div>
