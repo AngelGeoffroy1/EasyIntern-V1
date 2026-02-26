@@ -202,6 +202,13 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                 {user ? (
                   <>
                     <Link
+                      href="/profil"
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-4 py-2.5 text-sm font-semibold text-[#222] transition-colors hover:bg-gray-50"
+                    >
+                      Mon profil
+                    </Link>
+                    <Link
                       href="#"
                       onClick={() => setMenuOpen(false)}
                       className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"

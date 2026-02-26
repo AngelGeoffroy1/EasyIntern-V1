@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ type AuthMode = 'signin' | 'signup';
 
 export default function AuthPage() {
   const [mode, setMode] = useState<AuthMode>('signin');
+  const [animationKey, setAnimationKey] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,7 +26,10 @@ export default function AuthPage() {
   const { signIn, signUp } = useAuth();
   const router = useRouter();
 
-  const resetForm = () => {
+  const inputClass =
+    'w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20';
+
+  const resetForm = useCallback(() => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -35,11 +39,12 @@ export default function AuthPage() {
     setSchool('');
     setError('');
     setSuccess('');
-  };
+  }, []);
 
   const handleModeSwitch = (newMode: AuthMode) => {
     resetForm();
     setMode(newMode);
+    setAnimationKey((k) => k + 1);
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -99,7 +104,7 @@ export default function AuthPage() {
           <div className="mb-8 flex rounded-full bg-gray-100 p-1">
             <button
               onClick={() => handleModeSwitch('signin')}
-              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all ${
+              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${
                 mode === 'signin'
                   ? 'bg-white text-[#222] shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
@@ -109,7 +114,7 @@ export default function AuthPage() {
             </button>
             <button
               onClick={() => handleModeSwitch('signup')}
-              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all ${
+              className={`flex-1 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${
                 mode === 'signup'
                   ? 'bg-white text-[#222] shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
@@ -135,8 +140,8 @@ export default function AuthPage() {
 
           {/* Sign In Form */}
           {mode === 'signin' && (
-            <form onSubmit={handleSignIn} className="flex flex-col gap-4">
-              <div>
+            <form key={`signin-${animationKey}`} onSubmit={handleSignIn} className="flex flex-col gap-4">
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
@@ -144,11 +149,11 @@ export default function AuthPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="votre@email.com"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Mot de passe</label>
                 <input
                   type="password"
@@ -156,24 +161,26 @@ export default function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="mt-2 w-full rounded-xl bg-[#FF385C] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Connexion...' : 'Se connecter'}
-              </button>
+              <div className="auth-form-enter auth-field-stagger">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-2 w-full rounded-xl bg-[#FF385C] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Connexion...' : 'Se connecter'}
+                </button>
+              </div>
             </form>
           )}
 
           {/* Sign Up Form */}
           {mode === 'signup' && !success && (
-            <form onSubmit={handleSignUp} className="flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-3">
+            <form key={`signup-${animationKey}`} onSubmit={handleSignUp} className="flex flex-col gap-4">
+              <div className="auth-form-enter auth-field-stagger grid grid-cols-2 gap-3">
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-gray-700">Prénom</label>
                   <input
@@ -182,7 +189,7 @@ export default function AuthPage() {
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                     placeholder="Marie"
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                    className={inputClass}
                   />
                 </div>
                 <div>
@@ -193,12 +200,12 @@ export default function AuthPage() {
                     onChange={(e) => setLastName(e.target.value)}
                     required
                     placeholder="Dupont"
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                    className={inputClass}
                   />
                 </div>
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
@@ -206,11 +213,11 @@ export default function AuthPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="votre@email.com"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Numéro de téléphone</label>
                 <input
                   type="tel"
@@ -218,11 +225,11 @@ export default function AuthPage() {
                   onChange={(e) => setPhone(e.target.value)}
                   required
                   placeholder="+33 6 12 34 56 78"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">École actuelle</label>
                 <input
                   type="text"
@@ -230,11 +237,11 @@ export default function AuthPage() {
                   onChange={(e) => setSchool(e.target.value)}
                   required
                   placeholder="KEDGE Business School"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Mot de passe</label>
                 <input
                   type="password"
@@ -242,11 +249,11 @@ export default function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Minimum 6 caractères"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <div>
+              <div className="auth-form-enter auth-field-stagger">
                 <label className="mb-1.5 block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
                 <input
                   type="password"
@@ -254,17 +261,19 @@ export default function AuthPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-[#222] placeholder-gray-400 outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20"
+                  className={inputClass}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="mt-2 w-full rounded-xl bg-[#FF385C] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Création...' : 'Créer mon compte'}
-              </button>
+              <div className="auth-form-enter auth-field-stagger">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mt-2 w-full rounded-xl bg-[#FF385C] px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Création...' : 'Créer mon compte'}
+                </button>
+              </div>
             </form>
           )}
 
