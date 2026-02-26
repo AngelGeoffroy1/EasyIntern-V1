@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import Logo from '@/assets/Logo.png';
 import { useAuth } from '@/contexts/AuthContext';
 import { useParrainProfile } from '@/hooks/useParrainProfile';
+import { useAdmin } from '@/hooks/useAdmin';
 
 type NavbarProps = {
   onCompactSearchClick?: (field?: 'city' | 'school' | 'mobility') => void;
@@ -26,6 +27,7 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
   const pathname = usePathname();
   const { user, signOut } = useAuth();
   const { isParrain } = useParrainProfile();
+  const { isAdmin } = useAdmin();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const userInitial = user?.user_metadata?.first_name
@@ -247,6 +249,15 @@ export default function Navbar({ onCompactSearchClick, showCompactSearch = false
                         className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50"
                       >
                         Devenir parrain
+                      </Link>
+                    )}
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setMenuOpen(false)}
+                        className="block px-4 py-2.5 text-sm font-medium text-[#FF385C] transition-colors hover:bg-red-50"
+                      >
+                        Admin
                       </Link>
                     )}
                     <Link

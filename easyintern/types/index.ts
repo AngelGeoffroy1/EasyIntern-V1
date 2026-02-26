@@ -1,3 +1,52 @@
+// === Admin Types ===
+
+export type UserRole = 'user' | 'admin';
+
+export type AdminProfile = {
+  id: string;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  phone: string | null;
+  school: string | null;
+  avatar_url: string | null;
+  role: UserRole;
+  created_at: string;
+};
+
+export type AdminParrain = {
+  id: string;
+  user_id: string | null;
+  first_name: string;
+  last_name_initial: string;
+  city: string;
+  country: string;
+  country_flag: string;
+  school: string;
+  rating: number;
+  review_count: number;
+  years_on_site: number;
+  expertise: string[];
+  badge: Badge | null;
+  bio: string;
+  profile_image: string | null;
+  mobility_type: MobilityType;
+  email: string | null;
+  phone: string | null;
+  instagram: string | null;
+  linkedin: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AdminStats = {
+  totalUsers: number;
+  totalParrains: number;
+  totalAdmins: number;
+};
+
+// === Core Types ===
+
 export type Badge = 'gold' | 'silver' | 'bronze';
 
 export type MobilityType = 'stage' | 'exchange' | 'both';
