@@ -27,6 +27,10 @@ export type Parrain = {
   bio: string;
   profileImage: string;
   mobilityType: MobilityType;
+  email: string | null;
+  phone: string | null;
+  instagram: string | null;
+  linkedin: string | null;
 };
 
 export type CategoryOption = {

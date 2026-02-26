@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Parrain } from '@/types';
 import InfosPratiques from '@/components/InfosPratiques';
+import ContactModal from '@/components/ContactModal';
 
 const badgeConfig = {
   gold: { label: 'Gold', color: 'bg-yellow-100 text-yellow-800', icon: '🥇' },
@@ -33,6 +34,7 @@ type ParrainModalProps = {
 
 export default function ParrainModal({ parrain, onClose }: ParrainModalProps) {
   const [isClosing, setIsClosing] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const badge = parrain.badge ? badgeConfig[parrain.badge] : null;
 
   const handleClose = useCallback(() => {
@@ -286,7 +288,10 @@ export default function ParrainModal({ parrain, onClose }: ParrainModalProps) {
 
                 {/* CTA Button */}
                 <div className="mt-8 sm:mt-auto">
-                  <button className="w-full rounded-xl bg-[#FF385C] px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98]">
+                  <button
+                    onClick={() => setShowContact(true)}
+                    className="w-full rounded-xl bg-[#FF385C] px-8 py-4 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#D70466] hover:shadow active:scale-[0.98]"
+                  >
                     Contacter {parrain.firstName}
                   </button>
                 </div>
@@ -314,6 +319,10 @@ export default function ParrainModal({ parrain, onClose }: ParrainModalProps) {
           </div>
         </div>
       </div>
+
+      {showContact && (
+        <ContactModal parrain={parrain} onClose={() => setShowContact(false)} />
+      )}
     </div>
   );
 }

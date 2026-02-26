@@ -17,6 +17,10 @@ type ParrainRow = {
   bio: string;
   profile_image: string | null;
   mobility_type: 'stage' | 'exchange' | 'both';
+  email: string | null;
+  phone: string | null;
+  instagram: string | null;
+  linkedin: string | null;
 };
 
 function mapRow(row: ParrainRow): Parrain {
@@ -36,6 +40,10 @@ function mapRow(row: ParrainRow): Parrain {
     bio: row.bio,
     profileImage: row.profile_image ?? '',
     mobilityType: row.mobility_type,
+    email: row.email,
+    phone: row.phone,
+    instagram: row.instagram,
+    linkedin: row.linkedin,
   };
 }
 
