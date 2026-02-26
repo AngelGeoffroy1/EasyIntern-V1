@@ -116,49 +116,88 @@ export default function GlobeSection({ parrains }: GlobeSectionProps) {
         };
     }, [parrains, r]);
 
+    const uniqueCountriesCount = new Set(parrains.map(p => p.country)).size;
+
     return (
-        <div className="col-span-full my-8 flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-[#fafafa] py-12 px-4 shadow-sm ring-1 ring-gray-200 sm:px-6">
-            <div className="mb-4 max-w-2xl text-center">
-                <h3 className="text-2xl font-bold tracking-tight text-[#222] sm:text-3xl">
+        <div className="col-span-full my-8 flex flex-col items-center justify-center overflow-hidden rounded-3xl bg-[#fafafa] py-16 px-4 shadow-sm ring-1 ring-gray-200 sm:px-6">
+            <div className="mb-12 max-w-2xl text-center">
+                <h3 className="text-3xl font-bold tracking-tight text-[#222] sm:text-4xl">
                     Notre communauté à travers le monde
                 </h3>
-                <p className="mt-4 text-gray-500">
+                <p className="mt-4 text-lg text-gray-500">
                     Trouve un parrain dans les pays mis en évidence ci-dessous. Interagis avec le globe pour explorer nos destinations !
                 </p>
             </div>
 
-            <div className="relative mx-auto aspect-square w-full max-w-[500px] cursor-grab active:cursor-grabbing">
-                <canvas
-                    ref={canvasRef}
-                    onPointerDown={(e) => {
-                        pointerInteracting.current =
-                            e.clientX - pointerInteractionMovement.current;
-                        if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
-                    }}
-                    onPointerUp={() => {
-                        pointerInteracting.current = null;
-                        if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
-                    }}
-                    onPointerOut={() => {
-                        pointerInteracting.current = null;
-                        if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
-                    }}
-                    onPointerMove={(e) => {
-                        if (pointerInteracting.current !== null) {
-                            const delta = e.clientX - pointerInteracting.current;
-                            pointerInteractionMovement.current = delta;
-                            api.start({ r: delta / 200 });
-                        }
-                    }}
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        contain: 'layout paint size',
-                        opacity: 1,
-                        transition: 'opacity 1s ease',
-                        touchAction: 'none'
-                    }}
-                />
+            <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-10 lg:flex-row lg:items-center">
+
+                {/* Left Stats */}
+                <div className="order-2 w-full flex-1 flex-col space-y-8 sm:max-w-md lg:order-1 lg:max-w-xs lg:text-left">
+                    <div>
+                        <h4 className="text-5xl font-black tracking-tight text-[#ff385c]">{parrains.length}</h4>
+                        <p className="mt-2 text-lg font-semibold text-[#222]">Parrains disponibles</p>
+                        <p className="mt-1 text-sm text-gray-500">Des étudiants prêts à partager leur expérience et t&apos;accompagner.</p>
+                    </div>
+                    <div>
+                        <h4 className="text-5xl font-black tracking-tight text-[#ff385c]">{uniqueCountriesCount}</h4>
+                        <p className="mt-2 text-lg font-semibold text-[#222]">Pays couverts</p>
+                        <p className="mt-1 text-sm text-gray-500">Notre réseau s&apos;étend sur plusieurs continents au monde.</p>
+                    </div>
+                </div>
+
+                {/* Globe */}
+                <div className="order-1 relative mx-auto aspect-square w-full max-w-[450px] flex-none cursor-grab active:cursor-grabbing lg:order-2 xl:max-w-[550px]">
+                    <canvas
+                        ref={canvasRef}
+                        onPointerDown={(e) => {
+                            pointerInteracting.current =
+                                e.clientX - pointerInteractionMovement.current;
+                            if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
+                        }}
+                        onPointerUp={() => {
+                            pointerInteracting.current = null;
+                            if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
+                        }}
+                        onPointerOut={() => {
+                            pointerInteracting.current = null;
+                            if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
+                        }}
+                        onPointerMove={(e) => {
+                            if (pointerInteracting.current !== null) {
+                                const delta = e.clientX - pointerInteracting.current;
+                                pointerInteractionMovement.current = delta;
+                                api.start({ r: delta / 200 });
+                            }
+                        }}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            contain: 'layout paint size',
+                            opacity: 1,
+                            transition: 'opacity 1s ease',
+                            touchAction: 'none'
+                        }}
+                    />
+                </div>
+
+                {/* Right Features */}
+                <div className="order-3 w-full flex-1 flex-col space-y-6 sm:max-w-md lg:max-w-xs lg:text-right">
+                    <div className="group rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md">
+                        <div className="mb-4 flex items-center gap-3 lg:justify-end">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-xl lg:order-2">🤝</span>
+                            <h4 className="text-lg font-semibold text-[#222] lg:order-1">Accompagnement</h4>
+                        </div>
+                        <p className="text-sm text-gray-500">Pose toutes tes questions sur le logement, les visas ou la vie locale pour préparer ton départ.</p>
+                    </div>
+                    <div className="group rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-md">
+                        <div className="mb-4 flex items-center gap-3 lg:justify-end">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-xl lg:order-2">💡</span>
+                            <h4 className="text-lg font-semibold text-[#222] lg:order-1">Bons plans</h4>
+                        </div>
+                        <p className="text-sm text-gray-500">Bénéficie de véritables retours d&apos;expérience et de précieux conseils partagés par nos étudiants.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     );
