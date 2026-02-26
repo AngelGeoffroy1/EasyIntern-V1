@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { guideThemes } from '@/data/guides';
 import { SUPPORTED_COUNTRIES } from '@/data/countries';
+import { ALL_COUNTRIES } from '@/data/allCountries';
 import {
     fetchGuidesByCountry,
     fetchGuideCountries,
@@ -50,17 +51,23 @@ export default function AdminGuidesPage() {
     };
 
     // Load countries list
+    const [countriesWithGuidesSet, setCountriesWithGuidesSet] = useState<Set<string>>(new Set());
     useEffect(() => {
         (async () => {
             try {
                 const dbCountries = await fetchGuideCountries();
-                // Merge with supported countries to show all
-                const allCountries = [...new Set([...Object.keys(SUPPORTED_COUNTRIES), ...dbCountries])].sort(
+                setCountriesWithGuidesSet(new Set(dbCountries));
+                // All world countries, with ones that have guides first
+                const withGuides = [...new Set([...Object.keys(SUPPORTED_COUNTRIES), ...dbCountries])].sort(
                     (a, b) => a.localeCompare(b, 'fr')
                 );
-                setCountries(allCountries);
-                if (allCountries.length > 0 && !selectedCountry) {
-                    setSelectedCountry(allCountries[0]);
+                const otherCountries = Object.keys(ALL_COUNTRIES)
+                    .filter((c) => !withGuides.includes(c))
+                    .sort((a, b) => a.localeCompare(b, 'fr'));
+                const allCountriesList = [...withGuides, ...otherCountries];
+                setCountries(allCountriesList);
+                if (allCountriesList.length > 0 && !selectedCountry) {
+                    setSelectedCountry(allCountriesList[0]);
                 }
             } catch {
                 showMessage('error', 'Erreur lors du chargement des pays');
@@ -134,6 +141,13 @@ export default function AdminGuidesPage() {
                 editForm.resources
             );
             showMessage('success', 'Guide sauvegardé ✓');
+            // If saved to a different country, switch to it
+            if (editGuide.country !== selectedCountry) {
+                setSelectedCountry(editGuide.country);
+                // Refresh the countries with guides set
+                const freshCountries = await fetchGuideCountries();
+                setCountriesWithGuidesSet(new Set(freshCountries));
+            }
             setEditGuide(null);
             await loadGuides();
         } catch (err) {
@@ -180,7 +194,8 @@ export default function AdminGuidesPage() {
         return t ? `${t.icon} ${t.label}` : id;
     };
 
-    const countryFlag = SUPPORTED_COUNTRIES[selectedCountry] ?? '🌍';
+    const getFlag = (c: string) => SUPPORTED_COUNTRIES[c] ?? ALL_COUNTRIES[c] ?? '🌍';
+    const countryFlag = getFlag(selectedCountry);
 
     return (
         <div>
@@ -215,13 +230,22 @@ export default function AdminGuidesPage() {
                         setSelectedCountry(e.target.value);
                         setSearch('');
                     }}
-                    className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-[#222] outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 sm:w-64"
+                    className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-[#222] outline-none transition-all focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 sm:w-72"
                 >
-                    {countries.map((c) => (
-                        <option key={c} value={c}>
-                            {SUPPORTED_COUNTRIES[c] ?? '🌍'} {c}
-                        </option>
-                    ))}
+                    <optgroup label="📚 Pays avec guides">
+                        {countries.filter((c) => countriesWithGuidesSet.has(c)).map((c) => (
+                            <option key={c} value={c}>
+                                {getFlag(c)} {c}
+                            </option>
+                        ))}
+                    </optgroup>
+                    <optgroup label="🌍 Tous les pays">
+                        {countries.filter((c) => !countriesWithGuidesSet.has(c)).map((c) => (
+                            <option key={c} value={c}>
+                                {getFlag(c)} {c}
+                            </option>
+                        ))}
+                    </optgroup>
                 </select>
                 <input
                     type="text"
@@ -364,7 +388,7 @@ export default function AdminGuidesPage() {
                                     ? 'Modifier le guide'
                                     : 'Nouveau guide'}
                                 <span className="ml-2 text-sm font-normal text-gray-400">
-                                    {countryFlag} {selectedCountry}
+                                    {getFlag(editGuide.country)} {editGuide.country}
                                 </span>
                             </h2>
                             <button
@@ -378,6 +402,37 @@ export default function AdminGuidesPage() {
                         </div>
 
                         <div className="space-y-4">
+                            {/* Country (for new guides) */}
+                            {!guides.find((c) => c.id === editGuide.id) && (
+                                <div>
+                                    <label className="mb-1 block text-xs font-medium text-gray-500">Pays *</label>
+                                    <select
+                                        value={editGuide.country}
+                                        onChange={(e) => {
+                                            const newCountry = e.target.value;
+                                            setEditGuide((prev) => prev ? { ...prev, country: newCountry } : prev);
+                                            setEditForm((f) => ({ ...f, id: `${newCountry.toLowerCase().replace(/[\s']/g, '-')}-${Date.now()}` }));
+                                        }}
+                                        className={inputClass}
+                                    >
+                                        <optgroup label="📚 Pays avec guides">
+                                            {countries.filter((c) => countriesWithGuidesSet.has(c)).map((c) => (
+                                                <option key={c} value={c}>
+                                                    {getFlag(c)} {c}
+                                                </option>
+                                            ))}
+                                        </optgroup>
+                                        <optgroup label="🌍 Autres pays">
+                                            {countries.filter((c) => !countriesWithGuidesSet.has(c)).map((c) => (
+                                                <option key={c} value={c}>
+                                                    {getFlag(c)} {c}
+                                                </option>
+                                            ))}
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            )}
+
                             {/* Title & Icon */}
                             <div className="grid grid-cols-[1fr_80px] gap-3">
                                 <div>
