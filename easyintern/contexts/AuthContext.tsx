@@ -52,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email: data.email,
       password: data.password,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/confirm`,
         data: {
           first_name: data.firstName,
           last_name: data.lastName,
